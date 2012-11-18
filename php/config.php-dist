@@ -2,13 +2,28 @@
 	// *******************************************
 	// *** Database configuration (important!) ***
 	// *******************************************
+	
+    if($_ENV == null) // For update daemon
+    {
+        $host = $_SERVER['OPENSHIFT_MYSQL_DB_HOST'];
+        $user = $_SERVER['OPENSHIFT_MYSQL_DB_USERNAME'];
+        $password = $_SERVER['OPENSHIFT_MYSQL_DB_PASSWORD'];
+        $port = $_SERVER['OPENSHIFT_MYSQL_DB_PORT'];
+    }
+    else
+    {
+        $host = $_ENV['OPENSHIFT_MYSQL_DB_HOST'];
+        $user = $_ENV['OPENSHIFT_MYSQL_DB_USERNAME'];
+        $password = $_ENV['OPENSHIFT_MYSQL_DB_PASSWORD'];
+        $port = $_ENV['OPENSHIFT_MYSQL_DB_PORT'];
+    }
 
-	define('DB_TYPE', "pgsql"); // or mysql
-	define('DB_HOST', "localhost");
-	define('DB_USER', "fox");
-	define('DB_NAME', "fox");
-	define('DB_PASS', "XXXXXX");
-	//define('DB_PORT', '5432'); // when neeeded, PG-only
+	define('DB_TYPE', "mysql"); // or mysql
+	define('DB_HOST', $host);
+	define('DB_USER', $user);
+	define('DB_NAME', "reader");
+	define('DB_PASS', $password);
+	define('DB_PORT', $port); // when neeeded, PG-only
 
 	define('MYSQL_CHARSET', 'UTF8');
 	// Connection charset for MySQL. If you have a legacy database and/or experience
