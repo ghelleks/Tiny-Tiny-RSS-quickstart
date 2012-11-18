@@ -3,3 +3,41 @@
 # available.  Otherwise it will execute while your application is stopped
 # before the deploy step.  This script gets executed directly, so it
 # could be python, php, ruby, etc.
+
+# Directories
+TMP_DIR=$OPENSHIFT_DATA_DIR/tmp
+LOCK_DIR=$OPENSHIFT_DATA_DIR/lock
+CACHE_DIR=$OPENSHIFT_DATA_DIR/cache
+ICONS_DIR=$OPENSHIFT_DATA_DIR/feed-icons
+
+# Create dir in data dir
+mkdir $TMP_DIR
+mkdir $LOCK_DIR
+mkdir $ICONS_DIR
+mkdir $CACHE_DIR
+mkdir $CACHE_DIR/images
+mkdir $CACHE_DIR/export
+mkdir $CACHE_DIR/magpie
+mkdir $CACHE_DIR/simplepie
+
+# Copy .htaccess
+cp $OPENSHIFT_REPO_DIR/php/cache/.htaccess $OPENSHIFT_DATA_DIR/cache/.htaccess
+cp $OPENSHIFT_REPO_DIR/php/lock/.htaccess $OPENSHIFT_DATA_DIR/lock/.htaccess
+
+# Remove old dirs
+rm -r $OPENSHIFT_REPO_DIR/php/feed-icons
+rm -r $OPENSHIFT_REPO_DIR/php/lock
+rm -r $OPENSHIFT_REPO_DIR/php/cache
+rm -r $OPENSHIFT_REPO_DIR/php/tmp
+
+# Symlink from php dir to data dir
+ln -sf $ICONS_DIR $OPENSHIFT_REPO_DIR/php/feed-icons
+ln -sf $LOCK_DIR $OPENSHIFT_REPO_DIR/php/lock
+ln -sf $CACHE_DIR $OPENSHIFT_REPO_DIR/php/cache
+ln -sf $TMP_DIR $OPENSHIFT_REPO_DIR/php/tmp
+
+# Chmod
+chmod 777 -R $CACHE_DIR
+chmod 777 -R $LOCK_DIR
+chmod 777 -R $ICONS_DIR
+chmod 777 -R $TMP_DIR
