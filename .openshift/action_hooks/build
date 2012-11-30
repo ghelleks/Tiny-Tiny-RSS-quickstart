@@ -53,7 +53,7 @@ then
     chmod 777 -R $TMP_DIR
     
     echo "Finished installed Tiny Tiny RSS."
-    touch $INSTALL
+    echo "Installed TT-RSS!" >> $INSTALL
 else
     echo "Skipping install because it's already installed."
     echo "Remove $INSTALL to reinstall."
