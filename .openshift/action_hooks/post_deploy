@@ -5,6 +5,7 @@
 
 echo "Chmoding update daemon..."
 chmod +x $OPENSHIFT_REPO_DIR/shell/update-daemon.sh
+chmod +x $OPENSHIFT_REPO_DIR/.openshift/cron/hourly/update-daemon.sh
 
 echo "Starting update daemon..."
-$OPENSHIFT_REPO_DIR/shell/update-daemon.sh >/dev/null 2>&1 &
+nohup $OPENSHIFT_REPO_DIR/shell/update-daemon.sh >/dev/null 2>&1 &
