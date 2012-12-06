@@ -1,7 +1,10 @@
-#!/bin/bash
+﻿#!/bin/bash
 # This is a simple post deploy hook executed after your application 
 # is deployed and started.  This script gets executed directly, so 
 # it could be python, php, ruby, etc.
+
+echo "Terminating previous update daemon..."
+kill `cat $OPENSHIFT_DATA_DIR/lock/update_daemon.lock`
 
 echo "Chmoding update daemon..."
 chmod +x $OPENSHIFT_REPO_DIR/shell/update-daemon.sh
