@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Settings
-TMP="/tmp"
-LOCKDIR="$TMP/ttrss"
+LOCKDIR="$OPENSHIFT_DATA_DIR/lock"
 LOCKFILE="$LOCKDIR/ttrss.pid"
 UPDATE="$OPENSHIFT_REPO_DIR/php/update.php"
 
