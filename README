@@ -9,13 +9,13 @@ Create a PHP application
 
 Add mysql support to your application
     
-	rhc cartridge add -a reader -c add-mysql-5.1 -l $USERNAME
+	rhc cartridge add -a reader -c mysql-5.1 -l $USERNAME
 
 Add this upstream Piwik quickstart repo
 
-	cd reader/php
+	cd reader
 	rm -rf *
-	git remote add upstream -m master https://github.com/ghellesk/Tiny-Tiny-RSS-Quickstart.git
+	git remote add upstream -m master https://github.com/ghelleks/Tiny-Tiny-RSS-quickstart.git
 	git pull -s recursive -X theirs upstream master
 
 Then push the repo upstream to OpenShift
