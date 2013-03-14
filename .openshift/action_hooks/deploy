@@ -46,7 +46,7 @@ then
     echo
     echo "Database schema not found, importing 'ttrs_schema_mysql.sql' schema."
     echo
-    /usr/bin/mysql -u "$OPENSHIFT_MYSQL_DB_USERNAME" --password="$OPENSHIFT_MYSQL_DB_PASSWORD" -h "$OPENSHIFT_MYSQL_DB_HOST" "$OPENSHIFT_APP_NAME" < "$OPENSHIFT_REPO_DIR/php/schema/ttrs_schema_mysql.sql"
+    /usr/bin/mysql -u "$OPENSHIFT_MYSQL_DB_USERNAME" --password="$OPENSHIFT_MYSQL_DB_PASSWORD" -h "$OPENSHIFT_MYSQL_DB_HOST" "$OPENSHIFT_APP_NAME" < "$OPENSHIFT_REPO_DIR"php/schema/ttrss_schema_mysql.sql
     echo
     echo "done."
 else
