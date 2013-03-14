@@ -1,4 +1,31 @@
-Feel free to change or remove this file, it is informational only.
+Running on OpenShift
+--------------------
+
+Create an account at http://openshift.redhat.com/
+
+Create a PHP application
+
+	rhc app create reader -t php-5.3 -l $USERNAME
+
+Add mysql support to your application
+    
+	rhc cartridge add -a reader -c add-mysql-5.1 -l $USERNAME
+
+Add this upstream Piwik quickstart repo
+
+	cd reader/php
+	rm -rf *
+	git remote add upstream -m master https://github.com/ghellesk/Tiny-Tiny-RSS-Quickstart.git
+	git pull -s recursive -X theirs upstream master
+
+Then push the repo upstream to OpenShift
+
+	git push
+
+That's it, you can now checkout your application at:
+
+	http://reader-$yourlogin.rhcloud.com
+
 
 Repo layout
 ===========
@@ -41,13 +68,6 @@ environment variables for username, host and password. Example for mysql:
     $_ENV['OPENSHIFT_MYSQL_DB_USERNAME']  - DB Username
     $_ENV['OPENSHIFT_MYSQL_DB_PASSWORD']  - DB Password
 
-When embedding a NoSQL database using 'rhc app cartridge add', you can
-reference environment variables for username, host and password.
-Example for MongoDB:
-    $_ENV['OPENSHIFT_MONGODB_DB_HOST']      - NoSQL DB Host
-    $_ENV['OPENSHIFT_MONGODB_DB_PORT']      - NoSQL DB Port
-    $_ENV['OPENSHIFT_MONGODB_DB_USERNAME']  - NoSQL DB Username
-    $_ENV['OPENSHIFT_MONGODB_DB_PASSWORD']  - NoSQL DB Password
 
 To get a full list of environment variables, simply add a line in your
 .openshift/action_hooks/build script that says "export" and push.

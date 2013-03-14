@@ -54,7 +54,7 @@
 	// Directory for lockfiles, must be writable to the user you run
 	// daemon process or cronjobs under.
 
-	define('CACHE_DIR', $_ENV['OPENSHIFT_DATA_DIR'].'/cache');
+	define('CACHE_DIR', $_ENV['OPENSHIFT_DATA_DIR'].'cache');
 	// Local cache directory for RSS feed content.
 
 	define('ICONS_DIR', $_ENV['OPENSHIFT_DATA_DIR']."feed-icons");
