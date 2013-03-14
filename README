@@ -18,6 +18,9 @@ Add this upstream Piwik quickstart repo
 	git remote add upstream -m master https://github.com/ghelleks/Tiny-Tiny-RSS-quickstart.git
 	git pull -s recursive -X theirs upstream master
 
+Now edit php/config.php to add your email addresses where appropriate. Don't
+forget to commit the changes.
+
 Then push the repo upstream to OpenShift
 
 	git push
