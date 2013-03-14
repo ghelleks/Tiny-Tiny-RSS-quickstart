@@ -33,7 +33,7 @@
 	// *** Basic settings (important!) ***
 	// ***********************************
 
-	define('SELF_URL_PATH', 'http://yourserver/tt-rss/');
+	define('SELF_URL_PATH', 'http://'.$_SERVER['OPENSHIFT_APP_DNS'].'/tt-rss/');
 	// Full URL of your tt-rss installation. This should be set to the
 	// location of tt-rss directory, e.g. http://yourserver/tt-rss/
 	// You need to set this option correctly otherwise several features
@@ -50,14 +50,14 @@
 	define('PHP_EXECUTABLE', '/usr/bin/php');
 	// Path to PHP executable, used for various command-line tt-rss programs
 
-	define('LOCK_DIRECTORY', 'lock');
+	define('LOCK_DIRECTORY', $_ENV['OPENSHIFT_DATA_DIR'].'lock');
 	// Directory for lockfiles, must be writable to the user you run
 	// daemon process or cronjobs under.
 
-	define('CACHE_DIR', 'cache');
+	define('CACHE_DIR', $_ENV['OPENSHIFT_DATA_DIR'].'/cache');
 	// Local cache directory for RSS feed content.
 
-	define('ICONS_DIR', "feed-icons");
+	define('ICONS_DIR', $_ENV['OPENSHIFT_DATA_DIR']."feed-icons");
 	define('ICONS_URL', "feed-icons");
 	// Local and URL path to the directory, where feed favicons are stored.
 	// Unless you really know what you're doing, please keep those relative
