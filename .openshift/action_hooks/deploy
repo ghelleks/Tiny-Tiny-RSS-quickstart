@@ -6,11 +6,11 @@
 
 set -e
 
-if [ -z "$OPENSHIFT_DB_HOST" ]
+if [ -z "$OPENSHIFT_MYSQL_DB_HOST" ]
 then
 echo 1>&2
     echo "Could not find mysql database. Please run:" 1>&2
-    echo "rhc cartridge add -a $OPENSHIFT_APP_NAME -c mysql-5.1" 1>&2
+    echo "rhc app cartridge add -a $OPENSHIFT_APP_NAME -c mysql-5.1" 1>&2
     echo "then make a sample commit (add whitespace somewhere) and re-push" 1>&2
     echo 1>&2
 fi
@@ -24,9 +24,9 @@ while [ $RETRY -gt 0 ] ; do
     done
 
     #check for db
-    if [ -n "$OPENSHIFT_DB_HOST" ]
+    if [ -n "$OPENSHIFT_MYSQL_DB_HOST" ]
     then
-	echo "Database server found at $OPENSHIFT_DB_HOST. initializing..."
+	echo "Database server found at $OPENSHIFT_MYSQL_DB_HOST. initializing..."
         sleep 5
         break
     fi
@@ -35,19 +35,18 @@ while [ $RETRY -gt 0 ] ; do
     RETRY=$(( $RETRY - 1 ))
 done
 
-if [ -z "$OPENSHIFT_DB_HOST" ]
+if [ -z "$OPENSHIFT_MYSQL_DB_HOST" ]
 then
     exit 5
 fi
 
 # Confirm database exists, if not create it
-if ! /usr/bin/mysql -u "$OPENSHIFT_DB_USERNAME" --password="$OPENSHIFT_DB_PASSWORD" -h "$OPENSHIFT_DB_HOST" -e "SELECT schema_version FROM ttrss_version;" "$OPENSHIFT_APP_NAME" > /dev/null 2>&1
+if ! /usr/bin/mysql -u "$OPENSHIFT_MYSQL_DB_USERNAME" --password="$OPENSHIFT_MYSQL_DB_PASSWORD" -h "$OPENSHIFT_MYSQL_DB_HOST" -e "SELECT schema_version FROM ttrss_version;" "$OPENSHIFT_APP_NAME" > /dev/null 2>&1
 then
     echo
     echo "Database schema not found, importing 'ttrs_schema_mysql.sql' schema."
     echo
-    /usr/bin/mysql -u "$OPENSHIFT_DB_USERNAME" --password="$OPENSHIFT_DB_PASSWORD" -h "$OPENSHIFT_DB_HOST"
-"$OPENSHIFT_APP_NAME" < "$OPENSHIFT_REPO_DIR/php/schema/ttrs_schema_mysql.sql"
+    /usr/bin/mysql -u "$OPENSHIFT_MYSQL_DB_USERNAME" --password="$OPENSHIFT_MYSQL_DB_PASSWORD" -h "$OPENSHIFT_MYSQL_DB_HOST" "$OPENSHIFT_APP_NAME" < "$OPENSHIFT_REPO_DIR/php/schema/ttrs_schema_mysql.sql"
     echo
     echo "done."
 else
