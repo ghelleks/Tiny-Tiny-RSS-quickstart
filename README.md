@@ -1,3 +1,7 @@
+## The OpenShift crew run their own "official" quickstart which I recommend. ##
+
+	https://github.com/openshift-quickstart/tiny_tiny_rss-openshift-quickstart
+
 Running on OpenShift
 --------------------
 
